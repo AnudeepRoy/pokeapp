@@ -1,6 +1,6 @@
-October 3rd : Finish pagination and filter
+October 3rd : Finish pagination and filter (done, only region filtering is pending)
 
-October 6th : Add option to show details (method to be decided)
+October 6th : Add option to show details (method to be decided) - done
 
 Details to be added :
 Name : h2
