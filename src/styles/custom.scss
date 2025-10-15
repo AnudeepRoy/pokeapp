@@ -1,6 +1,8 @@
 @use './components/header.scss' as *;
 @use './variables.scss' as *;
 @use './components/pokeDex.scss' as *;
+@use './components/cards.scss' as *;
+@use './components/drawer.scss' as *;
 
 /*--Typography--*/
 @font-face {

@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import PokemonCard from "../components/card";
 import { Grid } from "@mui/material";
 
+
+import PokePagination from "../components/pagination";
+
+import FilterByType from "./filterByType";
+
 export default function Pokecards() {
   
   const [pokemons, setPokemons] = useState([]);
@@ -10,15 +15,25 @@ export default function Pokecards() {
   const [types, setTypes] = useState([]);
   const [regions, setRegions] = useState([]);
   const [allPokemons, setAllPokemons] = useState([]);
+
+  //pagination states
   const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 20;
+  const totalPages = Math.ceil(151 / itemsPerPage);
+
+  //filter states
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
   useEffect(() => {
-    fetchData("https://pokeapi.co/api/v2/pokemon/?limit=151", setAllPokemons);
+    fetchData("https://pokeapi.co/api/v2/pokemon/", setAllPokemons);
     fetchData("https://pokeapi.co/api/v2/type", setTypes);
     fetchData("https://pokeapi.co/api/v2/region", setRegions);
-    fetchData(`https://pokeapi.co/api/v2/pokemon/?limit=151&offset=${offset}`, setPokemons);
+    fetchData(`https://pokeapi.co/api/v2/pokemon/?limit=${itemsPerPage}&offset=${offset}`, setPokemons);
     setLoading(false);
-  }, []);
+  }, [page]);
 
   function fetchData(url, setter) {
     fetch(url)
@@ -41,15 +56,47 @@ export default function Pokecards() {
         allPokemons={allPokemons}
         types={types}
         regions={regions}
+        setSelectedPokemon={setSelectedPokemon}
+        setSelectedType={setSelectedType}
+        setSelectedRegion={setSelectedRegion}
       />
-      <h1>Pokecards Section</h1>
+      
       {loading ? <p>Loading...</p> : (
         <div className="card-grid">
-          <Grid container spacing={2}>
-          {pokemons.map((pokemon, index) => (
-              <PokemonCard key={index} pokemon={pokemon.name} id={getPokemonIdFromUrl(pokemon.url)} />
-          ))}
-           </Grid>
+          {!(selectedPokemon || selectedType || selectedRegion) && (
+            <PokePagination 
+              page={page}
+              setPage={setPage}
+              totalPages={totalPages}
+              setOffset={setOffset}
+            />
+          )}
+          <Grid container spacing={2}> 
+            {selectedPokemon ? ( //this will show only the selected pokemon
+               allPokemons
+                .filter(pokemon => pokemon.name.toLowerCase() === selectedPokemon.toLowerCase())
+                .map((pokemon, index) => (
+                  <PokemonCard key={index} pokemon={pokemon.name} id={getPokemonIdFromUrl(pokemon.url)} />
+                ))
+            ) : selectedType ? ( //this will show pokemons of selected type
+              <FilterByType 
+                selectedType={selectedType}
+                getPokemonIdFromUrl={getPokemonIdFromUrl}
+              />
+            ) : (
+             pokemons.map((pokemon, index) => (
+                <PokemonCard key={index} pokemon={pokemon.name} id={getPokemonIdFromUrl(pokemon.url)} />
+              ))
+            )}
+          </Grid>
+           {!(selectedPokemon || selectedType || selectedRegion) && (
+            <PokePagination 
+              page={page}
+              setPage={setPage}
+              totalPages={totalPages}
+              setOffset={setOffset}
+            />
+          )}
         </div>
       )}
     </div>

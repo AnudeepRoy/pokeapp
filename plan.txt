@@ -1,0 +1,10 @@
+October 3rd : Finish pagination and filter
+
+October 6th : Add option to show details (method to be decided)
+
+Details to be added :
+Name : h2
+Image : official
+Type : Image (multiple if available)
+Evolutionary Chain (with sprites and arrows, highlighting the current pokemon) (if no chain, mention with text)
+Attacks (top 5)
