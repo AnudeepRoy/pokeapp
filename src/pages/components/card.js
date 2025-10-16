@@ -24,7 +24,7 @@ export default function PokemonCard({pokemon, id}) {
                     <CardActionArea className="card-action">
                     <CardMedia
                         component="img"
-                        image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${id}.gif`}
+                        image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
                         alt={pokemon}
                         style={{
                             height:100,
