@@ -28,7 +28,8 @@ export default function PokemonCard({pokemon, id}) {
                         alt={pokemon}
                         style={{
                             height:100,
-                            width:`auto`
+                            width:`auto`,
+                            objectFit: 'scale-down'
                         }}
                     />
                     <CardContent>

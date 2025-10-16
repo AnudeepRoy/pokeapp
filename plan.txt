@@ -3,8 +3,16 @@ October 3rd : Finish pagination and filter (done, only region filtering is pendi
 October 6th : Add option to show details (method to be decided) - done
 
 Details to be added :
-Name : h2
-Image : official
+Name : h2 (done)
+Image : official (done)
 Type : Image (multiple if available)
 Evolutionary Chain (with sprites and arrows, highlighting the current pokemon) (if no chain, mention with text)
 Attacks (top 5)
+
+Improve UI of the drawer
+
+Add dark mode
+
+Possible:
+Add new page to show more details, use routing
+

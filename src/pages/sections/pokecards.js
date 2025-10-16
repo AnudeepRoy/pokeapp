@@ -7,6 +7,7 @@ import { Grid } from "@mui/material";
 import PokePagination from "../components/pagination";
 
 import FilterByType from "./filterByType";
+import FilterByRegion from "./filterByRegion";
 
 export default function Pokecards() {
   
@@ -28,7 +29,7 @@ export default function Pokecards() {
   const [selectedRegion, setSelectedRegion] = useState(null);
 
   useEffect(() => {
-    fetchData("https://pokeapi.co/api/v2/pokemon/", setAllPokemons);
+    fetchData("https://pokeapi.co/api/v2/pokemon/?limit=2000", setAllPokemons);
     fetchData("https://pokeapi.co/api/v2/type", setTypes);
     fetchData("https://pokeapi.co/api/v2/region", setRegions);
     fetchData(`https://pokeapi.co/api/v2/pokemon/?limit=${itemsPerPage}&offset=${offset}`, setPokemons);
@@ -82,6 +83,10 @@ export default function Pokecards() {
               <FilterByType 
                 selectedType={selectedType}
                 getPokemonIdFromUrl={getPokemonIdFromUrl}
+              />
+            ) : selectedRegion ? (
+              <FilterByRegion 
+                selectedRegion={selectedRegion}
               />
             ) : (
              pokemons.map((pokemon, index) => (
